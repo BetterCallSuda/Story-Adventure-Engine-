@@ -36,3 +36,68 @@ class ChoiceHistory(Base):
 
 Base.metadata.create_all(engine)
 
+# -----------------------------
+# STORY DATA
+# -----------------------------
+
+story = {
+
+"START": {
+"text": "You wake up in a mysterious forest.",
+"choices": {
+"1": ("Go north toward mountains", "MOUNTAIN"),
+"2": ("Go south toward river", "RIVER")
+}
+},
+
+"MOUNTAIN": {
+"text": "You see a dark cave in the mountain.",
+"choices": {
+"1": ("Enter the cave", "TREASURE"),
+"2": ("Go back to forest", "START")
+}
+},
+
+"RIVER": {
+"text": "A strong river blocks your path.",
+"choices": {
+"1": ("Swim across", "CROCODILE"),
+"2": ("Follow the river", "VILLAGE")
+}
+},
+
+"TREASURE": {
+"text": "Inside the cave you find hidden treasure. YOU WIN!",
+"choices": {}
+},
+
+"CROCODILE": {
+"text": "A crocodile attacks you. GAME OVER!",
+"choices": {}
+},
+
+"VILLAGE": {
+"text": "You discover a peaceful village. YOU SURVIVED!",
+"choices": {}
+}
+
+}
+
+# -----------------------------
+# CREATE PLAYER
+# -----------------------------
+
+def create_player():
+
+    name = input("Enter your name: ")
+
+    player = Player(
+        name=name,
+        location="START"
+    )
+
+    session.add(player)
+    session.commit()
+
+    return player
+
